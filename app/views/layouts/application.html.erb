@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+  <head>
+    <script src="https://kit.fontawesome.com/0fa5b4bf85.js" crossorigin="anonymous"></script>
+    <title>Bookers2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+  <body>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/"><span>Bookers</span></a>
+          <div class="navbar-collapse collapse show" id="navbar NavDropdown" style>
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+
+            <li>
+              <a class="nav-link text-light" href="/">
+              <i class="fa-solid fa-house-chimney"></i>
+              Home
+              </a>
+            </li>
+            <li>
+              <%= link_to "Users", "/"  %>
+            </li>
+            <li>
+              <%= link_to "Books", "/"  %>
+            </li>
+            <li>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+            </li>
+
+            <% else %>
+            <li>
+              <a class="nav-link text-light" href="/">
+              <i class="fa-solid fa-house-chimney"></i>
+              Home
+              </a>
+            </li>
+            <li>
+              <a class="nav-link text-light" href= "/home/about">
+              <i class="fa-solid fa-link"></i>
+              About
+              </a>
+            </li>
+            <li>
+              <a class="nav-link text-light" href= "/users/sign_up">
+              <i class="fas fa-user-plus"></i>
+              Sign up
+              </a>
+            </li>
+            <li>
+              <a class="nav-link text-light" href= "/users/sign_in">
+              <i class="fas fa-sign-in-alt"></i>
+              Log in
+              </a>
+            </li>
+            </ul>
+        <% end %>
+        </div>
+      </div>
+    </nav>
+    </header>
+
+  <footer>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="mx-auto">
+          <p>CopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <%= yield %>
+  </body>
+</html>
+
+
+
