@@ -1,0 +1,101 @@
+<% if flash[:notice] %>
+  <div class="flash">
+        <%= flash[:notice] %>
+    </div>
+<% end %>
+
+<html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+  <head>
+  </head>
+
+  <body>
+    <main>
+
+       <% if @book.errors.any? %>
+       <%= @book.errors.count %><strong>errors prohibited this obj from being saved:</strong><br>
+
+      <% @book.errors.full_messages.each do |message| %>
+      <div class="form-error">
+        <%= message %>
+      </div>
+      <% end %>
+      <% end %>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>User info</h2>
+
+            <% if @user.image.attached? %>
+              <%= image_tag book.image, size: "100x100" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "100x100" %>
+            <% end %>
+
+
+            <table class="table">
+
+              <tbody>
+                <tr></tr>
+                <tr>
+                  <th>name</th>
+                  <th><%= current_user.name %></th>
+                </tr>
+                <tr>
+                  <th>introduction</th>
+                  <th><%= current_user.introduction %></th>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="row">
+              <a class="btn btn-outline-secondary btn-block edit_user_path" href="/users/:id/edit"><i class="fas fa-user-cog"></i></a>
+            </div>
+
+            <%= form_with model:@book, url:books_path, method: :post do |f| %>
+            <h2 class="mt-3">New book</h2>
+            <h4>Title</h4>
+              <%= f.text_field :title %>
+            <h4>Opinion</h4>
+              <%= f.text_area :body %>
+              <%= f.submit 'Create Book' %>
+            <% end %>
+          </div>
+
+          <div class="col-md-8 offset-md-1">
+            <h2>Book detail</h2>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <%= link_to user_path do %>
+                      <% if @user.image.attached? %>
+                      <%= image_tag book.image, size: "100x100" %>
+                    <% else %>
+                      <%= image_tag 'no_image', size: "100x100" %>
+                    <% end %><br><%= current_user.name %>
+
+                    <% end %>
+                  </td>
+                  <td><%= @books.title %></td>
+                  <td><%= @books.body %></td>
+                  <td>
+                    <%= link_to "Edit", edit_book_path(@books.id), class:"btn btn-sm btn-success edit_book_:id" %>
+
+                  </td>
+                  <td>
+                    <% if @books.user == current_user %>
+                      <%= link_to "Destroy",book_path(@books.id), method: :delete, class:"btn btn-sm btn-danger destroy_book_:id", "data-confirm" => "本当に削除しますか？" %>
+                    <% end %>
+                  </td>
+                </tr>
+              </tboby>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
