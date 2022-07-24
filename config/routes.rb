@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :users
   resources :books
 
-  root to: 'homes#top'
+  root :to => 'homes#top'
   get 'home/about' => 'homes#about'
 end
 

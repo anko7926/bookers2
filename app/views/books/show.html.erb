@@ -11,10 +11,10 @@
   <body>
     <main>
 
-       <% if @book.errors.any? %>
-       <%= @book.errors.count %><strong>errors prohibited this obj from being saved:</strong><br>
+       <% if @book_new.errors.any? %>
+       <%= @book_new.errors.count %><strong>errors prohibited this obj from being saved:</strong><br>
 
-      <% @book.errors.full_messages.each do |message| %>
+      <% @book_new.errors.full_messages.each do |message| %>
       <div class="form-error">
         <%= message %>
       </div>
@@ -32,35 +32,15 @@
               <%= image_tag 'no_image', size: "100x100" %>
             <% end %>
 
+            <%= render 'list',user: @user %>
 
-            <table class="table">
-
-              <tbody>
-                <tr></tr>
-                <tr>
-                  <th>name</th>
-                  <th><%= current_user.name %></th>
-                </tr>
-                <tr>
-                  <th>introduction</th>
-                  <th><%= current_user.introduction %></th>
-                </tr>
-
-              </tbody>
-            </table>
-
-
-            <div class="row">
-              <a class="btn btn-outline-secondary btn-block edit_user_path" href="/users/:id/edit"><i class="fas fa-user-cog"></i></a>
-            </div>
-
-            <%= form_with model:@book, url:books_path, method: :post do |f| %>
+            <%= form_with model:@book_new, url:books_path, method: :post do |f| %>
             <h2 class="mt-3">New book</h2>
             <h4>Title</h4>
               <%= f.text_field :title %>
             <h4>Opinion</h4>
               <%= f.text_area :body %>
-              <%= f.submit 'Create Book' %>
+              <%= f.submit 'Create Book', class: "btn btn-success" %>
             <% end %>
           </div>
 
@@ -70,7 +50,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <%= link_to user_path do %>
+                    <%= link_to user_path(@user.id) do %>
                       <% if @user.image.attached? %>
                       <%= image_tag book.image, size: "100x100" %>
                     <% else %>
@@ -79,15 +59,16 @@
 
                     <% end %>
                   </td>
-                  <td><%= @books.title %></td>
-                  <td><%= @books.body %></td>
+                  <td><%= @book.title %></td>
+                  <td><%= @book.body %></td>
                   <td>
-                    <%= link_to "Edit", edit_book_path(@books.id), class:"btn btn-sm btn-success edit_book_:id" %>
-
+                    <% if @book.user == current_user %>
+                    <%= link_to "Edit", edit_book_path(@book.id), class:"btn btn-sm btn-success edit_book_:id" %>
+                    <% end %>
                   </td>
                   <td>
-                    <% if @books.user == current_user %>
-                      <%= link_to "Destroy",book_path(@books.id), method: :delete, class:"btn btn-sm btn-danger destroy_book_:id", "data-confirm" => "本当に削除しますか？" %>
+                    <% if @book.user == current_user %>
+                      <%= link_to "Destroy",book_path(@book.id), method: :delete, class:"btn btn-sm btn-danger destroy_book_:id", "data-confirm" => "本当に削除しますか？" %>
                     <% end %>
                   </td>
                 </tr>
