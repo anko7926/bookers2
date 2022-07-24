@@ -1,9 +1,11 @@
 <% if @book.errors.any? %>
   <%= @book.errors.count %><strong>errors prohibited this obj from being saved:</strong><br>
     <% @user.errors.full_messages.each do |message| %>
-      <div class="form-error">
+      <ul>
+      <li>
         <%= message %>
-      </div>
+      </li>
+     </ul>
     <% end %>
 <% end %>
 
@@ -12,8 +14,8 @@
     <div class="col-md-3">
       <h2>User info</h2>
 
-      <% if @user.image.attached? %>
-        <%= image_tag @user.image, size: "100x100" %>
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image, size: "100x100" %>
       <% else %>
         <%= image_tag 'no_image', size: "100x100" %>
       <% end %>
@@ -47,8 +49,8 @@
             <tbody>
               <tr>
                 <td>
-                  <% if user.image.attached? %>
-                    <%= image_tag book.image, size: "100x100" %>
+                  <% if user.profile_image.attached? %>
+                    <%= image_tag user.profile_image, size: "100x100" %>
                   <% else %>
                     <%= image_tag 'no_image', size: "100x100" %>
                   <% end %>

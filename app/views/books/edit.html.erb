@@ -13,9 +13,11 @@
         <%= @book.errors.count %><strong>errors prohibited this obj from being saved:</strong><br>
 
         <% @book.errors.full_messages.each do |message| %>
-        <div class="form-error">
-        <%= message %>
-        </div>
+       <ul>
+         <li>
+          <%= message %>
+         </li>
+       </ul>
         <% end %>
         <% end %>
 

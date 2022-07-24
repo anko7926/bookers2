@@ -15,9 +15,11 @@
        <%= @book_new.errors.count %><strong>errors prohibited this obj from being saved:</strong><br>
 
       <% @book_new.errors.full_messages.each do |message| %>
-      <div class="form-error">
+    <ul>
+      <li>
         <%= message %>
-      </div>
+      </li>
+    </ul>
       <% end %>
       <% end %>
 
@@ -26,8 +28,8 @@
           <div class="col-md-3">
             <h2>User info</h2>
 
-            <% if @user.image.attached? %>
-              <%= image_tag book.image, size: "100x100" %>
+            <% if @user.profile_image.attached? %>
+              <%= image_tag @user.profile_image, size: "100x100" %>
             <% else %>
               <%= image_tag 'no_image', size: "100x100" %>
             <% end %>
@@ -51,15 +53,19 @@
                 <tr>
                   <td>
                     <%= link_to user_path(@user.id) do %>
-                      <% if @user.image.attached? %>
-                      <%= image_tag book.image, size: "100x100" %>
+                      <% if @user.profile_image.attached? %>
+                      <%= image_tag @user.profile_image, size: "100x100" %>
                     <% else %>
                       <%= image_tag 'no_image', size: "100x100" %>
-                    <% end %><br><%= current_user.name %>
+                    <% end %><br><%= @user.name %>
 
                     <% end %>
                   </td>
-                  <td><%= @book.title %></td>
+                  <td>
+                    <%= link_to book_path(@book.id) do %>
+                    <%= @book.title %>
+                    <% end %>
+                  </td>
                   <td><%= @book.body %></td>
                   <td>
                     <% if @book.user == current_user %>
