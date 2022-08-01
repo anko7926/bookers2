@@ -9,8 +9,29 @@
       <th>introduction</th>
       <th><%= user.introduction %></th>
     </tr>
+    <tr>
+      <th>follows</th>
+      <th><%= user.followings.count %></th>
+    </tr>
+    <tr>
+      <th>followers</th>
+      <th><%= user.followers.count %></th>
+    </tr>
   </tbody>
 </table>
+
+<div>
+  <% if book.relationshiped_by?(current_user) %>
+    <%= link_to user_relationships_path(user), method: :delete do %>
+    <%= user.relationships.count %> フォロー外す
+  <% end %>
+  <% else %>
+    <%= link_to user_followings_path(user), method: :post do %>
+    <%= user.relationships.count %> フォローする
+  <% end %>
+  <% end %>
+</div>
+
 
 <div class="row">
   <%= link_to edit_user_path(user.id),class:"btn btn-outline-secondary btn-block edit_user_path" do %>
