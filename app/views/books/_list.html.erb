@@ -21,13 +21,13 @@
 </table>
 
 <div>
-  <% if book.relationshiped_by?(current_user) %>
+  <% if user.following?(current_user) %>
     <%= link_to user_relationships_path(user), method: :delete do %>
-    <%= user.relationships.count %> フォロー外す
+    フォロー外す
   <% end %>
   <% else %>
-    <%= link_to user_followings_path(user), method: :post do %>
-    <%= user.relationships.count %> フォローする
+    <%= link_to user_relationships_path(user), method: :post do %>
+    フォローする
   <% end %>
   <% end %>
 </div>

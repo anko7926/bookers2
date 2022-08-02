@@ -4,21 +4,10 @@
       <h2>User info</h2>
       <table class='table'>
         <tr><%= image_tag @book.user.get_profile_image, size:'100x100' %></tr>
-        <tr>
-	        <th>name</th>
-	        <th><%= @book.user.name %></th>
-        </tr>
-        <tr>
-	        <th>introduction</th>
-	        <th><%= @book.user.introduction %></th>
-        </tr>
       </table>
 
-<div class='row'>
-  <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block edit_user_#{@user.id}" do %>
-    <i class="fas fa-user-cog"></i>
-  <% end %>
-</div>
+      <%= render 'list',user: @user %>
+
       <h2 class="mt-3">New book</h2>
         <%= form_with model:Book.new,local:true do |f| %>
       <div class="form-group">
