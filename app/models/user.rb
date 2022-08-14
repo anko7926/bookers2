@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-
+  has_many :favorited_books, through: :favorites, source: :book
   # 自分がフォローされる（被フォロー）側の関係性
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   # 被フォロー関係を通じて参照→自分をフォローしている人
@@ -19,7 +19,9 @@ class User < ApplicationRecord
   # 与フォロー関係を通じて参照→自分がフォローしている人
   has_many :followings, through: :relationships, source: :followed
 
-  has_one_attached :profile_image
+  has_many :user_rooms
+  has_many :chats
+  has_many :view_counts, dependent: :destroy
 
   has_one_attached :profile_image
 
