@@ -1,5 +1,4 @@
 class ChatsController < ApplicationController
-  class ChatsController < ApplicationController
 
   def show
     @user = User.find(params[:id])
@@ -28,5 +27,5 @@ class ChatsController < ApplicationController
   def chat_params
     params.require(:chat).permit(:message, :room_id)
   end
-end
+
 end
